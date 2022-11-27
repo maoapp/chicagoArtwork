@@ -1,6 +1,10 @@
 import React from 'react';
 import {ThemeProvider} from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
+import {Provider} from 'react-redux';
+
+// @store
+import {store} from './src/store';
 
 // @navigation vendors
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -54,9 +58,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <MyTabs />
+        </NavigationContainer>
+      </Provider>
     </ThemeProvider>
   );
 };
