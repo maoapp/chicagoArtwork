@@ -14,6 +14,20 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-chicagoArtwork-chicagoArtworkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-chicagoArtwork-chicagoArtworkTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		DAA9CF642933B22D0014530C /* ProximaNova-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF582933B13E0014530C /* ProximaNova-Black.ttf */; };
+		DAA9CF652933B22D0014530C /* ProximaNova-BlackIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5E2933B13E0014530C /* ProximaNova-BlackIt.ttf */; };
+		DAA9CF662933B22D0014530C /* ProximaNova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5F2933B13E0014530C /* ProximaNova-Bold.ttf */; };
+		DAA9CF672933B22D0014530C /* ProximaNova-BoldIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF562933B13E0014530C /* ProximaNova-BoldIt.ttf */; };
+		DAA9CF682933B22D0014530C /* ProximaNova-Extrabld.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF632933B13E0014530C /* ProximaNova-Extrabld.ttf */; };
+		DAA9CF692933B22D0014530C /* ProximaNova-ExtrabldIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF612933B13E0014530C /* ProximaNova-ExtrabldIt.ttf */; };
+		DAA9CF6A2933B22D0014530C /* ProximaNova-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF602933B13E0014530C /* ProximaNova-Light.ttf */; };
+		DAA9CF6B2933B22D0014530C /* ProximaNova-LightIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5A2933B13E0014530C /* ProximaNova-LightIt.ttf */; };
+		DAA9CF6C2933B22D0014530C /* ProximaNova-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF622933B13E0014530C /* ProximaNova-Regular.ttf */; };
+		DAA9CF6D2933B22D0014530C /* ProximaNova-RegularIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF572933B13E0014530C /* ProximaNova-RegularIt.ttf */; };
+		DAA9CF6E2933B22D0014530C /* ProximaNova-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5B2933B13E0014530C /* ProximaNova-Semibold.ttf */; };
+		DAA9CF6F2933B22D0014530C /* ProximaNova-SemiboldIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5C2933B13E0014530C /* ProximaNova-SemiboldIt.ttf */; };
+		DAA9CF702933B22D0014530C /* ProximaNova-ThinIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF5D2933B13E0014530C /* ProximaNova-ThinIt.ttf */; };
+		DAA9CF712933B22D0014530C /* ProximaNovaT-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA9CF592933B13E0014530C /* ProximaNovaT-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +57,20 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-chicagoArtwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chicagoArtwork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = chicagoArtwork/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-chicagoArtwork-chicagoArtworkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chicagoArtwork-chicagoArtworkTests.release.xcconfig"; path = "Target Support Files/Pods-chicagoArtwork-chicagoArtworkTests/Pods-chicagoArtwork-chicagoArtworkTests.release.xcconfig"; sourceTree = "<group>"; };
+		DAA9CF562933B13E0014530C /* ProximaNova-BoldIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-BoldIt.ttf"; path = "../src/assets/fonts/ProximaNova-BoldIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF572933B13E0014530C /* ProximaNova-RegularIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-RegularIt.ttf"; path = "../src/assets/fonts/ProximaNova-RegularIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF582933B13E0014530C /* ProximaNova-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Black.ttf"; path = "../src/assets/fonts/ProximaNova-Black.ttf"; sourceTree = "<group>"; };
+		DAA9CF592933B13E0014530C /* ProximaNovaT-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNovaT-Thin.ttf"; path = "../src/assets/fonts/ProximaNovaT-Thin.ttf"; sourceTree = "<group>"; };
+		DAA9CF5A2933B13E0014530C /* ProximaNova-LightIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-LightIt.ttf"; path = "../src/assets/fonts/ProximaNova-LightIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF5B2933B13E0014530C /* ProximaNova-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Semibold.ttf"; path = "../src/assets/fonts/ProximaNova-Semibold.ttf"; sourceTree = "<group>"; };
+		DAA9CF5C2933B13E0014530C /* ProximaNova-SemiboldIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-SemiboldIt.ttf"; path = "../src/assets/fonts/ProximaNova-SemiboldIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF5D2933B13E0014530C /* ProximaNova-ThinIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-ThinIt.ttf"; path = "../src/assets/fonts/ProximaNova-ThinIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF5E2933B13E0014530C /* ProximaNova-BlackIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-BlackIt.ttf"; path = "../src/assets/fonts/ProximaNova-BlackIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF5F2933B13E0014530C /* ProximaNova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Bold.ttf"; path = "../src/assets/fonts/ProximaNova-Bold.ttf"; sourceTree = "<group>"; };
+		DAA9CF602933B13E0014530C /* ProximaNova-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Light.ttf"; path = "../src/assets/fonts/ProximaNova-Light.ttf"; sourceTree = "<group>"; };
+		DAA9CF612933B13E0014530C /* ProximaNova-ExtrabldIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-ExtrabldIt.ttf"; path = "../src/assets/fonts/ProximaNova-ExtrabldIt.ttf"; sourceTree = "<group>"; };
+		DAA9CF622933B13E0014530C /* ProximaNova-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Regular.ttf"; path = "../src/assets/fonts/ProximaNova-Regular.ttf"; sourceTree = "<group>"; };
+		DAA9CF632933B13E0014530C /* ProximaNova-Extrabld.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Extrabld.ttf"; path = "../src/assets/fonts/ProximaNova-Extrabld.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +114,7 @@
 		13B07FAE1A68108700A75B9A /* chicagoArtwork */ = {
 			isa = PBXGroup;
 			children = (
+				DAA9CF552933B0820014530C /* fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -146,6 +175,27 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-chicagoArtwork-chicagoArtworkTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DAA9CF552933B0820014530C /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DAA9CF582933B13E0014530C /* ProximaNova-Black.ttf */,
+				DAA9CF5E2933B13E0014530C /* ProximaNova-BlackIt.ttf */,
+				DAA9CF5F2933B13E0014530C /* ProximaNova-Bold.ttf */,
+				DAA9CF562933B13E0014530C /* ProximaNova-BoldIt.ttf */,
+				DAA9CF632933B13E0014530C /* ProximaNova-Extrabld.ttf */,
+				DAA9CF612933B13E0014530C /* ProximaNova-ExtrabldIt.ttf */,
+				DAA9CF602933B13E0014530C /* ProximaNova-Light.ttf */,
+				DAA9CF5A2933B13E0014530C /* ProximaNova-LightIt.ttf */,
+				DAA9CF622933B13E0014530C /* ProximaNova-Regular.ttf */,
+				DAA9CF572933B13E0014530C /* ProximaNova-RegularIt.ttf */,
+				DAA9CF5B2933B13E0014530C /* ProximaNova-Semibold.ttf */,
+				DAA9CF5C2933B13E0014530C /* ProximaNova-SemiboldIt.ttf */,
+				DAA9CF5D2933B13E0014530C /* ProximaNova-ThinIt.ttf */,
+				DAA9CF592933B13E0014530C /* ProximaNovaT-Thin.ttf */,
+			);
+			name = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +292,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA9CF642933B22D0014530C /* ProximaNova-Black.ttf in Resources */,
+				DAA9CF652933B22D0014530C /* ProximaNova-BlackIt.ttf in Resources */,
+				DAA9CF662933B22D0014530C /* ProximaNova-Bold.ttf in Resources */,
+				DAA9CF672933B22D0014530C /* ProximaNova-BoldIt.ttf in Resources */,
+				DAA9CF682933B22D0014530C /* ProximaNova-Extrabld.ttf in Resources */,
+				DAA9CF692933B22D0014530C /* ProximaNova-ExtrabldIt.ttf in Resources */,
+				DAA9CF6A2933B22D0014530C /* ProximaNova-Light.ttf in Resources */,
+				DAA9CF6B2933B22D0014530C /* ProximaNova-LightIt.ttf in Resources */,
+				DAA9CF6C2933B22D0014530C /* ProximaNova-Regular.ttf in Resources */,
+				DAA9CF6D2933B22D0014530C /* ProximaNova-RegularIt.ttf in Resources */,
+				DAA9CF6E2933B22D0014530C /* ProximaNova-Semibold.ttf in Resources */,
+				DAA9CF6F2933B22D0014530C /* ProximaNova-SemiboldIt.ttf in Resources */,
+				DAA9CF702933B22D0014530C /* ProximaNova-ThinIt.ttf in Resources */,
+				DAA9CF712933B22D0014530C /* ProximaNovaT-Thin.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -562,7 +626,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -596,6 +660,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -633,7 +698,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -659,6 +724,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
