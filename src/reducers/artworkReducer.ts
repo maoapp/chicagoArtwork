@@ -6,7 +6,7 @@ import {Dispatch} from 'redux';
 import {END_POINTS, HOST} from '../constants/constants';
 
 // @types
-import {Artworks, IRequest} from '../types';
+import {Artworks, IArtwork, IRequest} from '../types';
 
 export const getArtworks = () => async (dispatch: Dispatch<any>) => {
   dispatch(getArtworksRequest());
@@ -18,8 +18,23 @@ export const getArtworks = () => async (dispatch: Dispatch<any>) => {
   }
 };
 
+export const onSelectArtwork =
+  (artwork: IArtwork) => (dispatch: Dispatch<any>) =>
+    dispatch(selectArtwork(artwork));
+
+export const getArtworkImage = () => async (dispatch: Dispatch<any>) => {
+  dispatch(getArtworksRequest());
+  try {
+    const response = await axios.get(`${HOST}/${END_POINTS.artworks}`);
+    dispatch(getArtworksRequestSuccessful(response.data.data));
+  } catch (err) {
+    dispatch(getArtworksRequestFailure());
+  }
+};
+
 export interface IArtworksState {
   artworks: IRequest<Artworks>;
+  artworkSelected: IArtwork;
 }
 const initialState: IArtworksState = {
   artworks: {
@@ -28,6 +43,7 @@ const initialState: IArtworksState = {
     error: false,
     successful: false,
   },
+  artworkSelected: null as unknown as IArtwork,
 };
 
 export const artworksSlice = createSlice({
@@ -43,6 +59,9 @@ export const artworksSlice = createSlice({
     getArtworksRequestSuccessful: (state, action: PayloadAction<Artworks>) => {
       state.artworks.data = action.payload;
     },
+    selectArtwork: (state, action: PayloadAction<IArtwork>) => {
+      state.artworkSelected = action.payload;
+    },
   },
 });
 
@@ -50,7 +69,9 @@ export const {
   getArtworksRequest,
   getArtworksRequestFailure,
   getArtworksRequestSuccessful,
+  selectArtwork,
 } = artworksSlice.actions;
 export const showArtworks = state => state.artworks.artworks;
+export const showArtworkDetail = state => state.artworks.artworkSelected;
 
 export default artworksSlice.reducer;

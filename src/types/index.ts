@@ -1,11 +1,26 @@
+import {StackNavigationProp} from '@react-navigation/stack';
+
 export interface IArtwork {
   id: string;
   title: string;
   place_of_origin: string;
   thumbnail: IThumbnail;
+  image: string;
+  config: IArtworkConfig;
+  image_id: string;
+  artist_display: string;
+  artist_title: string;
+  artwork_type_title: string;
 }
 
-export type Artworks = IArtwork[];
+export interface Artworks {
+  data: IArtwork[];
+  config: IArtworkConfig;
+}
+
+export interface IArtworkConfig {
+  iiif_url: string;
+}
 
 export interface IThumbnail {
   lqip: string;
@@ -19,4 +34,8 @@ export interface IRequest<T> {
   data: T;
   error: boolean;
   successful: boolean;
+}
+
+export interface INavigation {
+  navigation: StackNavigationProp<any>;
 }
