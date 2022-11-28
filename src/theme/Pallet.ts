@@ -1,5 +1,5 @@
 export enum Pallet {
-  primaryColor = '#7c7c70',
+  primaryColor = '#796f65',
   white = 'white',
   black = 'black',
   gray = '#999999',

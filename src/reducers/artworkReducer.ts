@@ -4,33 +4,37 @@ import {Dispatch} from 'redux';
 
 // @constants
 import {END_POINTS, HOST} from '../constants/constants';
+import {AppDispatch, RootState} from '../store';
 
 // @types
 import {Artworks, IArtwork, IRequest} from '../types';
 
-export const getArtworks = () => async (dispatch: Dispatch<any>) => {
-  dispatch(getArtworksRequest());
-  try {
-    const response = await axios.get(`${HOST}/${END_POINTS.artworks}`);
-    dispatch(getArtworksRequestSuccessful(response.data));
-  } catch (err) {
-    dispatch(getArtworksRequestFailure());
-  }
-};
+export const getArtworks =
+  (page: number) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    dispatch(getArtworksRequest());
+    try {
+      const response = await axios.get(
+        `${HOST}/${END_POINTS.artworks}?page=${page}`,
+      );
+      let artworks = response.data;
 
+      if (page > 1 && page < response.data.pagination.limit) {
+        const currentData = getState().artworks.artworks.data;
+        artworks = {
+          ...artworks,
+          data: [...currentData.data, ...response.data.data],
+        };
+      }
+
+      dispatch(getArtworksRequestSuccessful(artworks));
+    } catch (err) {
+      dispatch(getArtworksRequestFailure());
+    }
+  };
 export const onSelectArtwork =
   (artwork: IArtwork) => (dispatch: Dispatch<any>) =>
     dispatch(selectArtwork(artwork));
-
-export const getArtworkImage = () => async (dispatch: Dispatch<any>) => {
-  dispatch(getArtworksRequest());
-  try {
-    const response = await axios.get(`${HOST}/${END_POINTS.artworks}`);
-    dispatch(getArtworksRequestSuccessful(response.data.data));
-  } catch (err) {
-    dispatch(getArtworksRequestFailure());
-  }
-};
 
 export interface IArtworksState {
   artworks: IRequest<Artworks>;
@@ -38,7 +42,7 @@ export interface IArtworksState {
 }
 const initialState: IArtworksState = {
   artworks: {
-    loading: false,
+    loading: true,
     data: null as unknown as Artworks,
     error: false,
     successful: false,
@@ -71,7 +75,5 @@ export const {
   getArtworksRequestSuccessful,
   selectArtwork,
 } = artworksSlice.actions;
-export const showArtworks = state => state.artworks.artworks;
-export const showArtworkDetail = state => state.artworks.artworkSelected;
 
 export default artworksSlice.reducer;

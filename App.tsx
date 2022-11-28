@@ -2,6 +2,7 @@ import React from 'react';
 import {ThemeProvider} from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
 import {Provider} from 'react-redux';
+import {ToastProvider} from 'react-native-toast-notifications';
 
 // @store
 import {store} from './src/store';
@@ -18,35 +19,36 @@ import DetailScreen from './src/screens/DetailScreen/DetailScreen';
 
 // @theme
 import {theme} from './src/mainTheme';
-import {Pallet} from './src/theme';
+import {FontNames, FontSizes, Pallet} from './src/theme';
 
 // @assets
 const homeIcon = require('./src/assets/svg/home');
 const favoritesIcon = require('./src/assets/svg/favorite');
 
 const App = () => {
-  const HomeStack = createStackNavigator();
+  const StackScreen = createStackNavigator();
   const Tab = createBottomTabNavigator();
-
-  const HomeStackScreen = () => (
-    <HomeStack.Navigator initialRouteName="Home">
-      <HomeStack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-      <HomeStack.Screen
-        name="Detail"
-        component={DetailScreen}
-        options={{headerShown: false}}
-      />
-    </HomeStack.Navigator>
-  );
 
   const MyTabs = () => (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Artwork"
       screenOptions={({route}) => ({
+        tabBarActiveTintColor: Pallet.white,
+        tabBarInactiveTintColor: Pallet.primaryColor,
+        activeBackgroundColor: Pallet.grayVariant,
+        inactiveBackgroundColor: Pallet.grayVariant,
+        labelStyle: {
+          fontFamily: FontNames.TextSemiBold,
+          fontSize: FontSizes.Small,
+        },
+        tabBarStyle: {
+          height: 90,
+          paddingHorizontal: 5,
+          paddingTop: 0,
+          backgroundColor: Pallet.grayVariant,
+          position: 'absolute',
+          borderTopWidth: 0,
+        },
         tabBarIcon: ({focused}) => {
           let icon = 'home';
           if (route.name === 'Artwork') {
@@ -57,22 +59,18 @@ const App = () => {
           }
           return (
             <SvgUri
-              fill={focused ? Pallet.blackGray : Pallet.grayLight}
+              fill={focused ? Pallet.white : Pallet.primaryColor}
               height={18}
               width={18}
               svgXmlData={icon}
             />
           );
         },
-      })}
-      tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: 'gray',
-      }}>
+      })}>
       <Tab.Screen
         options={{headerShown: false}}
         name="Artwork"
-        component={HomeStackScreen}
+        component={HomeScreen}
       />
       <Tab.Screen
         options={{headerShown: false}}
@@ -82,13 +80,30 @@ const App = () => {
     </Tab.Navigator>
   );
 
+  const HomeStackScreen = () => (
+    <StackScreen.Navigator initialRouteName="Home">
+      <StackScreen.Screen
+        name="Home"
+        component={MyTabs}
+        options={{headerShown: false}}
+      />
+      <StackScreen.Screen
+        name="Detail"
+        component={DetailScreen}
+        options={{headerShown: false}}
+      />
+    </StackScreen.Navigator>
+  );
+
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <NavigationContainer>
-          <MyTabs />
-        </NavigationContainer>
-      </Provider>
+      <ToastProvider>
+        <Provider store={store}>
+          <NavigationContainer>
+            <HomeStackScreen />
+          </NavigationContainer>
+        </Provider>
+      </ToastProvider>
     </ThemeProvider>
   );
 };

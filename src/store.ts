@@ -1,15 +1,17 @@
 import {configureStore} from '@reduxjs/toolkit';
+import {useDispatch} from 'react-redux';
 
 // @reducers
 import artworkReducer from './reducers/artworkReducer';
-import artworkDetailReducer from './reducers/artworkDetailReducer';
 
 export const store = configureStore({
   reducer: {
     artworks: artworkReducer,
-    artworkDetail: artworkDetailReducer,
   },
 });
 
+export type AppDispatch = typeof store.dispatch;
+
 export type RootState = ReturnType<typeof store.getState>;
 export type appDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;

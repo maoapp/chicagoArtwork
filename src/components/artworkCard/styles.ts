@@ -28,11 +28,15 @@ const styles = StyleSheet.create({
   titleCard: {
     fontSize: FontSizes.Medium,
     fontFamily: FontNames.TextExtraBold,
+    maxWidth: 320,
   },
   originCard: {
     fontFamily: FontNames.TextLight,
     marginBottom: 8,
     fontSize: FontSizes.Small,
+  },
+  animatedView: {
+    flex: 1,
   },
 });
 
