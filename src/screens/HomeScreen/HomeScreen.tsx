@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
 import {useSelector} from 'react-redux';
@@ -56,29 +56,32 @@ const HomeScreen: React.FC<INavigation> = ({navigation}) => {
     </View>
   );
 
-  const saveArtworkOnDevice = async (artwork: IArtwork, imageUrl: string) => {
-    const favoritesStored = await AsyncStorage.getItem('favorites');
-    let newFavorite = JSON.parse(favoritesStored as string);
+  const saveArtworkOnDevice = useCallback(
+    async (artwork: IArtwork, imageUrl: string) => {
+      const favoritesStored = await AsyncStorage.getItem('favorites');
+      let newFavorite = JSON.parse(favoritesStored as string);
 
-    if (!newFavorite) {
-      newFavorite = [];
-    } else {
-      newFavorite = newFavorite.filter(
-        (item: IArtwork) => item.id !== artwork.id,
-      );
-    }
+      if (!newFavorite) {
+        newFavorite = [];
+      } else {
+        newFavorite = newFavorite.filter(
+          (item: IArtwork) => item.id !== artwork.id,
+        );
+      }
 
-    newFavorite.push(buildArtwork(artwork, imageUrl));
+      newFavorite.push(buildArtwork(artwork, imageUrl));
 
-    await AsyncStorage.setItem('favorites', JSON.stringify(newFavorite))
-      .then(() => {
-        toast.show('Artwork Saved on favorites');
-        setMarkedAsFavorites([...markedAsFavorites, artwork.id]);
-      })
-      .catch(() => {
-        toast.show('Error saving artwork, try again please');
-      });
-  };
+      await AsyncStorage.setItem('favorites', JSON.stringify(newFavorite))
+        .then(() => {
+          toast.show('Artwork Saved on favorites');
+          setMarkedAsFavorites([...markedAsFavorites, artwork.id]);
+        })
+        .catch(() => {
+          toast.show('Error saving artwork, try again please');
+        });
+    },
+    [markedAsFavorites],
+  );
 
   const handleArtworkSelection = (artwork: IArtwork) => {
     dispatch(onSelectArtwork(artwork));
