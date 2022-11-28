@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
+  Animated,
   ImageBackground,
   Dimensions,
   TouchableOpacity,
   StyleSheet,
+  View,
 } from 'react-native';
 import {Text} from 'react-native-elements';
 import {useSelector} from 'react-redux';
@@ -11,8 +13,8 @@ import SvgUri from 'react-native-svg-uri';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import type {RouteProp} from '@react-navigation/native';
 
-// @redux
-import {showArtworkDetail} from '../../reducers/artworkReducer';
+// @types
+import {RootState} from '../../store';
 
 // @components
 import Loader from '../../components/loader/Loader';
@@ -20,6 +22,7 @@ import Loader from '../../components/loader/Loader';
 // @theme
 import {FontNames, FontSizes, Pallet} from '../../theme';
 import {INavigation} from '../../types';
+import {useState} from 'react';
 
 // @assets
 const {width, height} = Dimensions.get('window');
@@ -31,38 +34,71 @@ interface DetailScreenProps {
 }
 
 const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
-  const artwork = useSelector(showArtworkDetail);
+  const [loading, setLoading] = useState<boolean>(true);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const artwork = useSelector(
+    (state: RootState) => state.artworks,
+  ).artworkSelected;
+
   const {imageUrl} = route.params;
 
-  console.log(imageUrl, 'imageUrl');
-  return (
-    <ImageBackground
-      source={{uri: imageUrl}}
-      imageStyle={{width, height}}
-      resizeMode="cover">
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={navigation.goBack}>
-          <SvgUri fill="white" height={20} width={20} svgXmlData={backIcon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>{artwork.title}</Text>
-        <Text style={styles.infoContainer}>{artwork.thumbnail.alt_text}</Text>
-        <Text style={styles.infoContainer}>
-          <Text style={styles.infoTitle}>Author: </Text>
-          {artwork.artist_display}
-        </Text>
-        <Text style={styles.infoContainer}>
-          <Text style={styles.infoTitle}>Title: </Text> {artwork.artist_title}
-        </Text>
-        <Text style={styles.infoContainer}>
-          <Text style={styles.infoTitle}>Type: </Text>
-          {artwork.artwork_type_title}
-        </Text>
-        <Text style={styles.infoContainer}>
-          <Text style={styles.infoTitle}>Origin: </Text>
-          {artwork.artwork_type_title}
-        </Text>
-      </SafeAreaView>
-    </ImageBackground>
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  const renderContent = (
+    <Animated.View style={[styles.animation, {opacity: fadeAnim}]}>
+      <ImageBackground
+        source={{uri: imageUrl}}
+        style={{backgroundColor: Pallet.grayVariant}}
+        onLoadStart={() => <Loader />}
+        imageStyle={{width, height}}
+        resizeMode="cover">
+        <SafeAreaView style={styles.container}>
+          <TouchableOpacity onPress={navigation.goBack}>
+            <SvgUri fill="white" height={20} width={20} svgXmlData={backIcon} />
+          </TouchableOpacity>
+          <Text style={styles.title}>{artwork.title}</Text>
+          <Text style={styles.infoContainer}>
+            {artwork?.thumbnail?.alt_text}
+          </Text>
+          <Text style={styles.infoContainer}>
+            <Text style={styles.infoTitle}>Author: </Text>
+            {artwork.artist_display}
+          </Text>
+          <Text style={styles.infoContainer}>
+            <Text style={styles.infoTitle}>Title: </Text> {artwork.artist_title}
+          </Text>
+          <Text style={styles.infoContainer}>
+            <Text style={styles.infoTitle}>Type: </Text>
+            {artwork.artwork_type_title}
+          </Text>
+          <Text style={styles.infoContainer}>
+            <Text style={styles.infoTitle}>Origin: </Text>
+            {artwork.artwork_type_title}
+          </Text>
+        </SafeAreaView>
+      </ImageBackground>
+    </Animated.View>
+  );
+
+  return loading ? (
+    <View style={styles.loaderContainer}>
+      <Loader />
+    </View>
+  ) : (
+    renderContent
   );
 };
 
@@ -76,14 +112,21 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.ExtraLarge,
     alignSelf: 'center',
     fontFamily: FontNames.TextBold,
-    marginBottom: 20,
+    marginVertical: 20,
   },
   container: {
-    backgroundColor: Pallet.black,
-    opacity: 0.7,
+    opacity: 0.6,
     width,
     height,
     paddingHorizontal: 15,
+    backgroundColor: Pallet.black,
+  },
+  loaderContainer: {
+    backgroundColor: Pallet.black,
+    flex: 1,
+  },
+  animation: {
+    flex: 1,
   },
 });
 

@@ -1,16 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useToast} from 'react-native-toast-notifications';
 
 // @redux
-import {
-  getArtworks,
-  showArtworks,
-  onSelectArtwork,
-} from '../../reducers/artworkReducer';
+import {getArtworks, onSelectArtwork} from '../../reducers/artworkReducer';
 
 // @theme
 import {FontNames, FontSizes, Pallet} from '../../theme';
@@ -21,22 +18,67 @@ import Loader from '../../components/loader/Loader';
 
 // @types
 import {IArtwork, INavigation} from '../../types';
+import {RootState, useAppDispatch} from '../../store';
 
 // @utils
-import {buildImageUrl} from '../../utils/general';
+import {buildArtwork, buildImageUrl} from '../../utils/general';
 
 const HomeScreen: React.FC<INavigation> = ({navigation}) => {
-  const dispatch = useDispatch();
-  const artworks = useSelector(showArtworks);
+  const [markedAsFavorites, setMarkedAsFavorites] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const artworks = useSelector((state: RootState) => state.artworks).artworks;
+  const dispatch = useAppDispatch();
+
+  const toast = useToast();
+
   useEffect(() => {
-    dispatch(getArtworks());
-  }, []);
+    dispatch(getArtworks(page));
+    onMarkFavorites();
+  }, [dispatch, page]);
+
+  const onMarkFavorites = async () => {
+    const favoritesStored = await AsyncStorage.getItem('favorites');
+
+    if (!favoritesStored) {
+      return false;
+    }
+
+    const favoritesArtworksIds = JSON.parse(favoritesStored as string).map(
+      (artwork: IArtwork) => artwork.id,
+    );
+
+    setMarkedAsFavorites(favoritesArtworksIds);
+  };
 
   const renderError = () => (
     <View style={styles.infoContainer}>
-      <Text>Error</Text>
+      <Text style={styles.emptyState}>Error fetching artworks</Text>
     </View>
   );
+
+  const saveArtworkOnDevice = async (artwork: IArtwork, imageUrl: string) => {
+    const favoritesStored = await AsyncStorage.getItem('favorites');
+    let newFavorite = JSON.parse(favoritesStored as string);
+
+    if (!newFavorite) {
+      newFavorite = [];
+    } else {
+      newFavorite = newFavorite.filter(
+        (item: IArtwork) => item.id !== artwork.id,
+      );
+    }
+
+    newFavorite.push(buildArtwork(artwork, imageUrl));
+
+    await AsyncStorage.setItem('favorites', JSON.stringify(newFavorite))
+      .then(() => {
+        toast.show('Artwork Saved on favorites');
+        setMarkedAsFavorites([...markedAsFavorites, artwork.id]);
+      })
+      .catch(() => {
+        toast.show('Error saving artwork, try again please');
+      });
+  };
 
   const handleArtworkSelection = (artwork: IArtwork) => {
     dispatch(onSelectArtwork(artwork));
@@ -45,13 +87,6 @@ const HomeScreen: React.FC<INavigation> = ({navigation}) => {
       artwork.image_id,
     );
     navigation.navigate('Detail', {imageUrl});
-  };
-
-  const handleSaveArtwork = async (artwork: IArtwork) => {
-    // const favoritesStored = JSON.P AsyncStorage.getItem('favorites');
-
-    // const newFavorite = JSON.stringify(artwork);
-    // AsyncStorage.setItem('favorites', JSON.stringify(artwork));
   };
 
   const renderArtworks = () => (
@@ -63,19 +98,23 @@ const HomeScreen: React.FC<INavigation> = ({navigation}) => {
           artwork={item}
           urlImage={buildImageUrl(artworks.data.config.iiif_url, item.image_id)}
           onPress={() => handleArtworkSelection(item)}
-          onSaveFavorite={() => handleSaveArtwork(item)}
+          onSaveFavorite={() =>
+            saveArtworkOnDevice(item, artworks.data.config.iiif_url)
+          }
+          favorite={markedAsFavorites.includes(item.id)}
         />
       )}
       ItemSeparatorComponent={() => <View style={styles.dividerCard} />}
+      onEndReached={() => setPage(page + 1)}
     />
   );
 
   const renderContent = () => {
     let content;
 
-    // if (true) {
-    //   content = <Loader />;
-    // }
+    if (artworks.loading) {
+      content = <Loader />;
+    }
 
     if (artworks.data) {
       content = renderArtworks();
@@ -100,6 +139,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Pallet.grayVariant,
+    paddingBottom: 50,
   },
   title: {
     fontFamily: FontNames.TextExtraBold,
@@ -118,6 +158,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptyState: {
+    fontSize: FontSizes.ExtraMedium,
   },
 });
 

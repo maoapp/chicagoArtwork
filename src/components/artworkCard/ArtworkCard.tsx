@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
+  Animated,
   TouchableOpacity,
   ImageBackground,
   ScrollView,
@@ -20,41 +21,61 @@ const favoriteIcon = require('../../assets/svg/favorite');
 
 interface IArtworkCardProps {
   artwork: IArtwork;
-  onPress: () => void;
-  onSaveFavorite?: (artwork: IArtwork) => void;
+  onPress?: () => void;
+  onSaveFavorite?: () => void;
   urlImage: string;
+  favorite: boolean;
 }
 
 const ArtworkCard: React.FC<IArtworkCardProps> = ({
   artwork,
+  favorite,
+  urlImage,
   onPress,
   onSaveFavorite,
-  urlImage,
-}) => (
-  <TouchableOpacity onPress={onPress}>
-    <ImageBackground
-      imageStyle={styles.imageBackground}
-      style={styles.artworkCard}
-      source={{
-        uri: urlImage,
-      }}>
-      <ScrollView style={styles.contentCard}>
-        <View style={styles.headerCard}>
-          <Text style={styles.titleCard}>{artwork.title}</Text>
-          <TouchableOpacity onPress={() => onSaveFavorite(artwork)}>
-            <SvgUri
-              fill={Pallet.gray}
-              height={18}
-              width={18}
-              svgXmlData={favoriteIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.originCard}>from {artwork.place_of_origin}</Text>
-        <Text>{artwork.thumbnail.alt_text}</Text>
-      </ScrollView>
-    </ImageBackground>
-  </TouchableOpacity>
-);
+}) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <ImageBackground
+        imageStyle={styles.imageBackground}
+        style={styles.artworkCard}
+        source={{
+          uri: urlImage,
+        }}>
+        <Animated.View style={[styles.animatedView, {opacity: fadeAnim}]}>
+          <ScrollView style={styles.contentCard}>
+            <View style={styles.headerCard}>
+              <Text style={styles.titleCard}>{artwork.title}</Text>
+              {!favorite && (
+                <TouchableOpacity onPress={onSaveFavorite}>
+                  <SvgUri
+                    fill={Pallet.gray}
+                    height={18}
+                    width={18}
+                    svgXmlData={favoriteIcon}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+            <Text style={styles.originCard}>
+              from {artwork.place_of_origin}
+            </Text>
+            <Text>{artwork?.thumbnail?.alt_text}</Text>
+          </ScrollView>
+        </Animated.View>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+};
 
 export default ArtworkCard;

@@ -16,6 +16,7 @@ export interface IArtwork {
 export interface Artworks {
   data: IArtwork[];
   config: IArtworkConfig;
+  pagination: IPagination;
 }
 
 export interface IArtworkConfig {
@@ -38,4 +39,12 @@ export interface IRequest<T> {
 
 export interface INavigation {
   navigation: StackNavigationProp<any>;
+}
+
+export interface IPagination {
+  total: number;
+  limit: number;
+  offset: number;
+  total_pages: number;
+  current_page: number;
 }
