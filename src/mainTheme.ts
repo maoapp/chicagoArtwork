@@ -17,8 +17,8 @@ export const theme = {
   },
   Text: {
     style: {
-      fontFamily: FontNames.PrimaryText,
-      color: Pallet.black,
+      fontFamily: FontNames.TextRegular,
+      color: Pallet.white,
       FontSizes: FontSizes.Normal,
     },
   },
