@@ -35,7 +35,7 @@ interface DetailScreenProps {
 
 const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(0.01)).current;
   const artwork = useSelector(
     (state: RootState) => state.artworks,
   ).artworkSelected;

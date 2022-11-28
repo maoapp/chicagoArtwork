@@ -34,7 +34,7 @@ const ArtworkCard: React.FC<IArtworkCardProps> = ({
   onPress,
   onSaveFavorite,
 }) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(0.01)).current;
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
